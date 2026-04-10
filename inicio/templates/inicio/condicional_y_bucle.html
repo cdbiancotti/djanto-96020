@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+  
+{% block title_head %}Condicional y bucle{% endblock title_head %}
+{% block h1_header %}Condicional y Bucle{% endblock h1_header %}
+{% block contenido %}
+
+    <p>En este ejemplo, se muestra cómo usar condicionales y bucles en una plantilla de Django.</p>
+
+    <ul>
+        {% for dato in datos %}
+            {% if dato|divisibleby:2 %}
+            <li style='color: blue'>
+            {% else %}
+            <li style='color: red'>
+            {% endif %}
+                {{ dato }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock contenido %}

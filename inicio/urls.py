@@ -1,7 +1,9 @@
 from django.urls import path
 from inicio.views import inicio, vista2
 
+app_name = 'inicio'
+
 urlpatterns = [
-    path('', inicio),
-    path('vista2/', vista2)
+    path('', inicio, name='inicio'),
+    path('vista2/', vista2, name='condicional_y_bucle')
 ]

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title_head %}Crear Vehiculo{% endblock title_head %} 
+
+{% block h1_header %}Crear Vehiculo{% endblock h1_header %}
+{% block contenido %}
+<form action="{% url "vehiculos:crear" %}" method="post">
+    {% csrf_token %}
+    <label for="marca">
+        Marca:
+    </label>
+    <input type="text" name="marca">
+    <label for="modelo">
+        Modelo:
+    </label>
+    <input type="text" name="modelo">
+    <label for="fecha_fabricacion">
+        Fecha Fabricacion:
+    </label>
+    <input type="date" name="fecha_fabricacion">
+    <input type="submit" value="Crear">
+</form>
+{% endblock contenido %}

@@ -33,10 +33,10 @@ def inicio(request):
     
     # return render(request, 'inicio.html')
     # return render(request, 'inicio.html', {})
-    return render(request, 'inicio.html', {'fecha_hora': fecha_hora})
+    return render(request, 'inicio/inicio.html', {'fecha_hora': fecha_hora})
 
 def vista2(request):
     
     listado = list(range(1, 11))
     
-    return render(request, 'condicional_y_bucle.html', {'datos': listado})
+    return render(request, 'inicio/condicional_y_bucle.html', {'datos': listado})

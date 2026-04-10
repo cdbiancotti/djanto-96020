@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title_head %}Listado de autos{% endblock title_head %} 
+
+{% block h1_header %}Listado de autos{% endblock h1_header %}
+{% block contenido %}
+
+<ul>
+    {% for auto in lista %}
+        <li>{{ auto }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock contenido %}
