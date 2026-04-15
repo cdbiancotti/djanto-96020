@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title_head %}Modificar Vehiculo{% endblock title_head %} 
+
+{% block h1_header %}Modificar Vehiculo{% endblock h1_header %}
+{% block contenido %}
+<form action="{% url "vehiculos:modificar" auto.id %}" method="post">
+    {% csrf_token %}
+    {{formulario}}
+
+    <input type="submit" value="Modificar">
+</form>
+{% endblock contenido %}

@@ -1,19 +1,66 @@
 from django.shortcuts import render, redirect
 from vehiculos.models import Auto
+from vehiculos.forms import FormularioCrearAuto, FormularioBusquedaAuto, FormularioModificacionAuto
 
 def listado(request):
-    lista = Auto.objects.all()
-    return render(request, 'vehiculos/listado.html', {'lista': lista})
+    # lista = Auto.objects.all()
+    
+    formulario = FormularioBusquedaAuto(request.GET)
+    if formulario.is_valid():
+        data = formulario.cleaned_data
+        lista = Auto.objects.filter(marca__icontains=data.get('marca'),modelo__icontains=data.get('modelo'))
+    else:
+        lista = Auto.objects.all()
+    
+    return render(request, 'vehiculos/listado.html', {'lista': lista, 'formulario': formulario})
 
 # def crear_vehiculo(request, marca, modelo, fecha):
 def crear_vehiculo(request):
     
-    print('GET >>>>', request.GET)
-    print('POST >>>>', request.POST)
+    # print('GET >>>>', request.GET)
+    # print('POST >>>>', request.POST)
     
     if request.method == 'POST':
-        auto = Auto(marca=request.POST.get('marca'), modelo=request.POST.get('modelo'), fecha_fabricacion=request.POST.get('fecha_fabricacion'))
-        auto.save()
-        return redirect('vehiculos:inicio')
+        formulario = FormularioCrearAuto(request.POST)
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            auto = Auto(marca=data.get('marca'), modelo=data.get('modelo'), fecha_fabricacion=data.get('fecha_fabricacion'))
+            auto.save()
+            return redirect('vehiculos:inicio')
+    else:
+        formulario = FormularioCrearAuto()
     
-    return render(request, 'vehiculos/crear.html')
+    return render(request, 'vehiculos/crear.html', {'formulario': formulario})
+
+def detalle_vehiculo(request, identificador):
+    
+    auto = Auto.objects.get(id=identificador)
+    
+    return render(request, 'vehiculos/detalle.html', {'auto': auto})
+
+def eliminar_vehiculo(request, identificador):
+    
+    auto = Auto.objects.get(id=identificador)
+    auto.delete()
+    
+    return redirect('vehiculos:inicio')
+
+def modificar_vehiculo(request, identificador):
+    
+    auto = Auto.objects.get(id=identificador)
+    
+    if request.method == "POST":
+        formulario = FormularioModificacionAuto(request.POST)
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            auto.marca = data['marca']
+            auto.modelo = data['modelo']
+            auto.fecha_fabricacion = data['fecha_fabricacion']
+            auto.save()
+            return redirect('vehiculos:inicio')
+    else:
+        formulario = FormularioModificacionAuto(initial={'marca': auto.marca, 'modelo':  auto.modelo, 'fecha_fabricacion': auto.fecha_fabricacion})
+    
+    return render(request, 'vehiculos/modificar.html', {'auto': auto, 'formulario': formulario})
+            
+    

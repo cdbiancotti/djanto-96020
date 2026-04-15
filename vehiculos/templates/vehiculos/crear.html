@@ -6,7 +6,7 @@
 {% block contenido %}
 <form action="{% url "vehiculos:crear" %}" method="post">
     {% csrf_token %}
-    <label for="marca">
+    {% comment %} <label for="marca">
         Marca:
     </label>
     <input type="text" name="marca">
@@ -17,7 +17,10 @@
     <label for="fecha_fabricacion">
         Fecha Fabricacion:
     </label>
-    <input type="date" name="fecha_fabricacion">
+    <input type="date" name="fecha_fabricacion"> {% endcomment %}
+
+    {{formulario}}
+
     <input type="submit" value="Crear">
 </form>
 {% endblock contenido %}

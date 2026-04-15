@@ -4,11 +4,28 @@
 
 {% block h1_header %}Listado de autos{% endblock h1_header %}
 {% block contenido %}
+<section>
+    
+<form action="{% url "vehiculos:inicio" %}" method="get">
 
-<ul>
-    {% for auto in lista %}
-        <li>{{ auto }}</li>
-    {% endfor %}
-</ul>
+    {{formulario}}
 
+    <input type="submit" value="Buscar">
+</form>
+
+</section>
+<section>
+
+    <ul>
+        {% for auto in lista %}
+        <li>{{ auto }} 
+            | <a href="{% url "vehiculos:detalle" auto.id %}">Detalle</a>
+            | <a href="{% url "vehiculos:modificar" auto.id %}">Modificar</a>
+            | <a href="{% url "vehiculos:eliminar" auto.id %}">Eliminar</a>
+        </li>
+        
+        {% endfor %}
+    </ul>
+    
+</section>
 {% endblock contenido %}
