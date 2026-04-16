@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title_head %}Crear Tarea{% endblock title_head %} 
+
+{% block h1_header %}Crear Tarea{% endblock h1_header %}
+{% block contenido %}
+<form action="{% url "tareas:crear_tarea" %}" method="post">
+    {% csrf_token %}
+
+    {{form}}
+
+    <input type="submit" value="Crear">
+</form>
+{% endblock contenido %}

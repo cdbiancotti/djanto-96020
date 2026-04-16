@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title_head %}Detalle de Tarea{% endblock title_head %} 
+
+{% block h1_header %}Detalle de Tarea{% endblock h1_header %}
+{% block contenido %}
+
+<ul>
+    <li>Titulo: {{tarea.titulo}}</li>
+    <li>Descripción: {{tarea.descripcion}}</li>
+    <li>Completada: {{tarea.completada|yesno:"Sí,No"}}</li>
+    <li>Fecha de creacion: {{tarea.fecha_creacion}}</li>
+</ul>
+
+{% endblock contenido %}

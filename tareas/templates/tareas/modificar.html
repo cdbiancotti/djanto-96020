@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title_head %}Modificar Tarea{% endblock title_head %} 
+
+{% block h1_header %}Modificar Tarea{% endblock h1_header %}
+{% block contenido %}
+<form action="{% url "tareas:modificar_tarea" tarea.id %}" method="post">
+    {% csrf_token %}
+    {{form}}
+
+    <input type="submit" value="Modificar">
+</form>
+{% endblock contenido %}

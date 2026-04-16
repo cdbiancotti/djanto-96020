@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title_head %}Listado de tareas{% endblock title_head %} 
+
+{% block h1_header %}Listado de tareas{% endblock h1_header %}
+{% block contenido %}
+<section>
+    <a href="{% url "tareas:crear_tarea" %}">Crear Tarea</a>
+
+</section>
+
+<section>
+    
+<form action="{% url "tareas:tareas" %}" method="get">
+
+    {{formulario}}
+
+    <input type="submit" value="Buscar">
+</form>
+
+</section>
+<section>
+
+    <ul>
+        {% for tarea in tareas %}
+        <li>{{ tarea }} 
+            | <a href="{% url "tareas:detalle_tarea" tarea.id %}">Detalle</a>
+            | <a href="{% url "tareas:modificar_tarea" tarea.id %}">Modificar</a>
+            | <a href="{% url "tareas:borrar_tarea" tarea.id %}">Borrar</a>
+        </li>
+        
+        {% endfor %}
+    </ul>
+    
+</section> 
+{% endblock contenido %}
