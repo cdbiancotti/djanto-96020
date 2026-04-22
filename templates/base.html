@@ -31,7 +31,18 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url "vehiculos:crear" %}">Crear Vehiculo</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url "vehiculos:inicio" %}">Vehiculos</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url "tareas:tareas" %}">Tareas</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-primary py-3 px-0 px-lg-3 rounded" href="{% url "usuarios:iniciar_sesion" %}">Iniciar Sesión</a></li>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url "usuarios:perfil" %}">{{request.user.username}}</a></li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <form action="{% url "usuarios:cerrar_sesion" %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-danger py-3 px-0 px-lg-3 rounded" style="font-weight: bold;" value="CERRAR SESIÓN">
+                            </form>
+                        </li>
+                        {% else %}
+                        <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-primary py-3 px-0 px-lg-3 rounded" style="font-weight: bold;" href="{% url "usuarios:iniciar_sesion" %}">Iniciar Sesión</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-warning py-3 px-0 px-lg-3 rounded" style="color: white; font-weight: bold;" href="{% url "usuarios:registro" %}">Registrarse</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from vehiculos.models import Auto
 from vehiculos.forms import FormularioCrearAuto, FormularioBusquedaAuto, FormularioModificacionAuto
+from django.contrib.auth.decorators import login_required
 
 def listado(request):
     # lista = Auto.objects.all()
@@ -14,6 +15,7 @@ def listado(request):
     
     return render(request, 'vehiculos/listado.html', {'lista': lista, 'formulario': formulario})
 
+@login_required
 # def crear_vehiculo(request, marca, modelo, fecha):
 def crear_vehiculo(request):
     
@@ -38,6 +40,7 @@ def detalle_vehiculo(request, identificador):
     
     return render(request, 'vehiculos/detalle.html', {'auto': auto})
 
+@login_required
 def eliminar_vehiculo(request, identificador):
     
     auto = Auto.objects.get(id=identificador)
@@ -45,6 +48,7 @@ def eliminar_vehiculo(request, identificador):
     
     return redirect('vehiculos:inicio')
 
+@login_required
 def modificar_vehiculo(request, identificador):
     
     auto = Auto.objects.get(id=identificador)

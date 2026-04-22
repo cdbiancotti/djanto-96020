@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from tareas.models import Tarea
 from django.urls import reverse_lazy
 from tareas.forms import ModificarTareaFormulario, BuscarTarea
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def tareas(request):
     return render(request, 'tareas/lista.html')
@@ -32,7 +33,7 @@ class ListaTareas(ListView):
         return tareas
     
 
-class CrearTarea(CreateView):
+class CrearTarea(LoginRequiredMixin, CreateView):
     model = Tarea
     template_name = "tareas/crear.html"
     fields = ['titulo', 'descripcion', 'fecha_creacion']
@@ -41,14 +42,14 @@ class CrearTarea(CreateView):
     success_url = reverse_lazy("tareas:tareas")
 
 
-class ModificarTarea(UpdateView):
+class ModificarTarea(LoginRequiredMixin, UpdateView):
     model = Tarea
     template_name = "tareas/modificar.html"
     form_class = ModificarTareaFormulario
     success_url = reverse_lazy("tareas:tareas")
 
 
-class BorrarTarea(DeleteView):
+class BorrarTarea(LoginRequiredMixin, DeleteView):
     model = Tarea
     template_name = "tareas/borrar.html"
     success_url = reverse_lazy("tareas:tareas")
