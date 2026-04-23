@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title_head %}Cambio Contrasenia{% endblock title_head %} 
+
+{% block h1_header %}Cambio Contrasenia{% endblock h1_header %}
+{% block contenido %}
+<form action="{% url "usuarios:cambio_contrasenia" %}" method="post">
+    {% csrf_token %}
+
+    {{form}}
+
+    <input type="submit" value="Cambiar Contraseña">
+</form>
+{% endblock contenido %}

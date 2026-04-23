@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
 
@@ -34,12 +34,20 @@ class FormularioCreacion(UserCreationForm):
         
 class FormularioEdicion(UserChangeForm):
     password = None
+    fecha_nacimiento = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
     
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name', 'email', 'fecha_nacimiento']
         labels = {
             'first_name': 'Nombre', 
             'last_name': 'Apellido', 
             'email': 'Email',
         }
+        
+        
+class CambiarContraseniaFormulario(PasswordChangeForm):
+    old_password = forms.CharField(label="Vieja Contrasenia", widget=forms.PasswordInput())
+    new_password1 = forms.CharField(label="Nueva Contrasenia", widget=forms.PasswordInput())
+    new_password2 = forms.CharField(label="Repetir Nueva Contrasenia", widget=forms.PasswordInput())
+    

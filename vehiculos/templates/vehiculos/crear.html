@@ -4,7 +4,7 @@
 
 {% block h1_header %}Crear Vehiculo{% endblock h1_header %}
 {% block contenido %}
-<form action="{% url "vehiculos:crear" %}" method="post">
+<form action="{% url "vehiculos:crear" %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% comment %} <label for="marca">
         Marca:

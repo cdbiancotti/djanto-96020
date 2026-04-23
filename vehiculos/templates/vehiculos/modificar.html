@@ -4,7 +4,7 @@
 
 {% block h1_header %}Modificar Vehiculo{% endblock h1_header %}
 {% block contenido %}
-<form action="{% url "vehiculos:modificar" auto.id %}" method="post">
+<form action="{% url "vehiculos:modificar" auto.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{formulario}}
 

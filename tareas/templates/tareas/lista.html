@@ -21,6 +21,7 @@
 </section>
 <section>
 
+    {% if tareas %}
     <ul>
         {% for tarea in tareas %}
         <li>{{ tarea }} 
@@ -31,6 +32,9 @@
         
         {% endfor %}
     </ul>
+    {% else %}
+    <p>No hay tareas registradas.</p>
+    {% endif %}
     
 </section> 
 {% endblock contenido %}

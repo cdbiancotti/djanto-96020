@@ -16,6 +16,7 @@
 </section>
 <section>
 
+    {% if lista %}
     <ul>
         {% for auto in lista %}
         <li>{{ auto }} 
@@ -26,6 +27,9 @@
         
         {% endfor %}
     </ul>
+    {% else %}
+    <p>No hay autos registrados.</p>
+    {% endif %}
     
 </section>
 {% endblock contenido %}

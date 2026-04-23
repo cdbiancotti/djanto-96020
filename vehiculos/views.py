@@ -23,10 +23,10 @@ def crear_vehiculo(request):
     # print('POST >>>>', request.POST)
     
     if request.method == 'POST':
-        formulario = FormularioCrearAuto(request.POST)
+        formulario = FormularioCrearAuto(request.POST, request.FILES)
         if formulario.is_valid():
             data = formulario.cleaned_data
-            auto = Auto(marca=data.get('marca'), modelo=data.get('modelo'), fecha_fabricacion=data.get('fecha_fabricacion'))
+            auto = Auto(marca=data.get('marca'), modelo=data.get('modelo'), fecha_fabricacion=data.get('fecha_fabricacion'), imagen=data.get('imagen'))
             auto.save()
             return redirect('vehiculos:inicio')
     else:
@@ -54,16 +54,17 @@ def modificar_vehiculo(request, identificador):
     auto = Auto.objects.get(id=identificador)
     
     if request.method == "POST":
-        formulario = FormularioModificacionAuto(request.POST)
+        formulario = FormularioModificacionAuto(request.POST, request.FILES)
         if formulario.is_valid():
             data = formulario.cleaned_data
             auto.marca = data['marca']
             auto.modelo = data['modelo']
             auto.fecha_fabricacion = data['fecha_fabricacion']
+            auto.imagen = data['imagen']
             auto.save()
             return redirect('vehiculos:inicio')
     else:
-        formulario = FormularioModificacionAuto(initial={'marca': auto.marca, 'modelo':  auto.modelo, 'fecha_fabricacion': auto.fecha_fabricacion})
+        formulario = FormularioModificacionAuto(initial={'marca': auto.marca, 'modelo':  auto.modelo, 'fecha_fabricacion': auto.fecha_fabricacion, 'imagen': auto.imagen})
     
     return render(request, 'vehiculos/modificar.html', {'auto': auto, 'formulario': formulario})
             
