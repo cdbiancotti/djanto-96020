@@ -35,10 +35,11 @@ class FormularioCreacion(UserCreationForm):
 class FormularioEdicion(UserChangeForm):
     password = None
     fecha_nacimiento = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+    avatar = forms.ImageField(required=False)
     
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'fecha_nacimiento']
+        fields = ['first_name', 'last_name', 'email', 'fecha_nacimiento', 'avatar']
         labels = {
             'first_name': 'Nombre', 
             'last_name': 'Apellido', 

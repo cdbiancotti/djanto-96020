@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title_head %}Perfil{% endblock title_head %} 
 
 {% block h1_header %}Perfil{% endblock h1_header %}
@@ -10,6 +10,14 @@
     <li>Apellido: {{ request.user.last_name }}</li>
     <li>Email: {{ request.user.email }}</li>
     <li>Fecha de nacimiento: {{ request.user.infoextra.fecha_nacimiento }}</li>
+    <li>Avatar: 
+        {% if request.user.infoextra.avatar %}
+            <img src="{{ request.user.infoextra.avatar.url }}" alt="Avatar" width="100">
+        {% else %}
+            {% comment %} <p>No hay avatar disponible.</p> {% endcomment %}
+            <img src="{% static 'assets\img\avataaars.svg' %}" alt="Avatar" width="100">
+        {% endif %}
+    </li>
 </ul>
 <p>
     <a href="{% url "usuarios:editar_perfil" %}">Editar</a>

@@ -32,7 +32,16 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url "vehiculos:inicio" %}">Vehiculos</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url "tareas:tareas" %}">Tareas</a></li>
                         {% if request.user.is_authenticated %}
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url "usuarios:perfil" %}">{{request.user.username}}</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url "usuarios:perfil" %}">
+                            
+                            {% if request.user.infoextra.avatar %}
+                                <img src="{{ request.user.infoextra.avatar.url }}" alt="Avatar" width="40">
+                            {% else %}
+                                {% comment %} <p>No hay avatar disponible.</p> {% endcomment %}
+                                <img src="{% static 'assets\img\avataaars.svg' %}" alt="Avatar" width="40">
+                            {% endif %}
+                            {% comment %} {{request.user.username}} {% endcomment %}
+                        </a></li>
                         <li class="nav-item mx-0 mx-lg-1">
                             <form action="{% url "usuarios:cerrar_sesion" %}" method="post">
                                 {% csrf_token %}

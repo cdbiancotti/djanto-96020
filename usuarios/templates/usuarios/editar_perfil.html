@@ -4,7 +4,7 @@
 
 {% block h1_header %}Editar Perfil{% endblock h1_header %}
 {% block contenido %}
-<form action="{% url "usuarios:editar_perfil" %}" method="post">
+<form action="{% url "usuarios:editar_perfil" %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
     {{formulario}}
